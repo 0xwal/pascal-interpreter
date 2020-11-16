@@ -1,6 +1,26 @@
+import readLine from 'readline';
 import {Interpreter} from './interpreter';
 
 
-const interpreter = new Interpreter('4 - 3');
-const result = interpreter.evaluate();
-console.log(result);
+let rl = readLine.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+
+function waitForCommand()
+{
+    rl.question('> ', (answer: string) =>
+    {
+        const interpreter = new Interpreter(answer);
+        console.log(interpreter.evaluate());
+        waitForCommand();
+    });
+}
+
+waitForCommand();
+process.on('exit', () =>
+{
+    rl.close();
+    console.log('bye!');
+});
