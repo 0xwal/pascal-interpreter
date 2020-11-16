@@ -107,6 +107,12 @@ describe('Interpreter', () =>
             expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, 2));
             expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.EOF));
         });
+
+        it('should handle multiple digits number', async () =>
+        {
+            let interpreter = new Interpreter('99');
+            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, 99));
+        });
     });
 
     describe('evaluate', () =>
@@ -118,8 +124,9 @@ describe('Interpreter', () =>
 
         it('should evaluate and return the result', async () =>
         {
-            let interpreter = new Interpreter('1+2');
-            expect(interpreter.evaluate()).to.equals(3);
+            expect(new Interpreter('1+2').evaluate()).to.equals(3);
+            expect(new Interpreter('1 + 2').evaluate()).to.equals(3);
+            expect(new Interpreter('20 + 20').evaluate()).to.equals(40);
         });
     });
 });

@@ -39,8 +39,16 @@ export class Interpreter
         }
 
         if (!isNaN(parseInt(currentChar))) {
-            this._position++;
-            return new Token(TokenType.INTEGER, parseInt(currentChar));
+            let number = '';
+            let tempPosition = this._position;
+            let count = 0;
+            while (this.source[tempPosition] >= '0' && this.source[tempPosition] <= '9') {
+                number += this.source[tempPosition];
+                tempPosition++;
+                count++;
+            }
+            this._position += count;
+            return new Token(TokenType.INTEGER, parseInt(number));
         }
 
         if (currentChar === '+') {
