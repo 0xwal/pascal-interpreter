@@ -1,4 +1,5 @@
 import {Token, TokenType} from './token';
+import {InvalidTokenException} from './exceptions/invalid-token.exception';
 
 
 export class Interpreter
@@ -28,6 +29,10 @@ export class Interpreter
     {
         const currentChar = this.source[this.position];
 
+        if (!currentChar) {
+            return new Token(TokenType.EOF);
+        }
+
         if (!isNaN(parseInt(currentChar))) {
             this._position++;
             return new Token(TokenType.INTEGER, currentChar);
@@ -38,6 +43,6 @@ export class Interpreter
             return new Token(TokenType.PLUS, currentChar);
         }
 
-        return new Token(TokenType.EOF);
+        throw new InvalidTokenException(currentChar);
     }
 }

@@ -1,6 +1,7 @@
 import {expect} from 'chai';
 import {Interpreter} from '../src/interpreter';
 import {Token, TokenType} from '../src/token';
+import {InvalidTokenException} from '../src/exceptions/invalid-token.exception';
 
 
 describe('Interpreter', () =>
@@ -65,6 +66,27 @@ describe('Interpreter', () =>
             expect(interpreter.position).to.equals(0);
             interpreter.nextToken();
             expect(interpreter.position).to.equals(1);
+        });
+
+        it('should return TokenType.EOF when reach the end of the source', async () =>
+        {
+            let interpreter = new Interpreter('');
+            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.EOF));
+        });
+
+        it('should be tokenize whole source of "1+2"', async () =>
+        {
+            let interpreter = new Interpreter('1+2');
+            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, '1'));
+            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.PLUS, '+'));
+            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, '2'));
+            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.EOF));
+        });
+
+        it('should throw an exception when unknown token provided in the source', async () =>
+        {
+            let interpreter = new Interpreter('@');
+            expect(() => interpreter.nextToken()).to.throws(InvalidTokenException, 'Invalid Token: @');
         });
     });
 });
