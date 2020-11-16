@@ -1,5 +1,6 @@
 import {Token, TokenType} from './token';
 import {InvalidTokenException} from './exceptions/invalid-token.exception';
+import {InvalidSyntaxException} from './exceptions/invalid-syntax.exception';
 
 
 export class Interpreter
@@ -86,21 +87,33 @@ export class Interpreter
 
             if (currentToken?.type === TokenType.PLUS) {
                 currentToken = this.nextToken();
+                if (currentToken?.type !== TokenType.INTEGER) {
+                    throw new InvalidSyntaxException();
+                }
                 result = result + currentToken?.value;
             }
 
             else if (currentToken?.type === TokenType.SUB) {
                 currentToken = this.nextToken();
+                if (currentToken?.type !== TokenType.INTEGER) {
+                    throw new InvalidSyntaxException();
+                }
                 result = result - currentToken?.value;
             }
 
             else if (currentToken?.type === TokenType.MUL) {
                 currentToken = this.nextToken();
+                if (currentToken?.type !== TokenType.INTEGER) {
+                    throw new InvalidSyntaxException();
+                }
                 result = result * currentToken?.value;
             }
 
             else if (currentToken?.type === TokenType.DIV) {
                 currentToken = this.nextToken();
+                if (currentToken?.type !== TokenType.INTEGER) {
+                    throw new InvalidSyntaxException();
+                }
                 result = result / currentToken?.value;
             }
             currentToken = this.nextToken();

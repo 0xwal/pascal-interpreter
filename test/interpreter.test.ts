@@ -2,6 +2,7 @@ import {expect} from 'chai';
 import {Interpreter} from '../src/interpreter';
 import {Token, TokenType} from '../src/token';
 import {InvalidTokenException} from '../src/exceptions/invalid-token.exception';
+import {InvalidSyntaxException} from '../src/exceptions/invalid-syntax.exception';
 
 
 describe('Interpreter', () =>
@@ -175,6 +176,14 @@ describe('Interpreter', () =>
             expect(new Interpreter('2 * 2 * 2').evaluate()).to.equals(8);
             expect(new Interpreter('2 * 2 / 2 / 1').evaluate()).to.equals(2);
             expect(new Interpreter('8 / 2 / 2').evaluate()).to.equals(2);
+        });
+
+        it('should throw an exception', async () =>
+        {
+            expect(() => new Interpreter('4 + 4 +').evaluate()).to.throws(InvalidSyntaxException, 'Invalid syntax');
+            expect(() => new Interpreter('4 + 4 /').evaluate()).to.throws(InvalidSyntaxException, 'Invalid syntax');
+            expect(() => new Interpreter('4 + 4 *').evaluate()).to.throws(InvalidSyntaxException, 'Invalid syntax');
+            expect(() => new Interpreter('4 + 4 -').evaluate()).to.throws(InvalidSyntaxException, 'Invalid syntax');
         });
     });
 });
