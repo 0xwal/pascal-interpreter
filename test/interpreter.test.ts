@@ -74,12 +74,22 @@ describe('Interpreter', () =>
             expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.EOF));
         });
 
+        it('should parse the INTEGER to an integer value', async () =>
+        {
+            let interpreter = new Interpreter('1+2');
+
+            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, 1));
+            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.PLUS, '+'));
+            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, 2));
+        });
+
         it('should be tokenize whole source of "1+2"', async () =>
         {
             let interpreter = new Interpreter('1+2');
-            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, '1'));
+
+            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, 1));
             expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.PLUS, '+'));
-            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, '2'));
+            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, 2));
             expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.EOF));
         });
 
@@ -92,9 +102,9 @@ describe('Interpreter', () =>
         it('should ignore whitespaces', async () =>
         {
             let interpreter = new Interpreter(' 1 + 2 ');
-            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, '1'));
+            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, 1));
             expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.PLUS, '+'));
-            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, '2'));
+            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, 2));
             expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.EOF));
         });
     });

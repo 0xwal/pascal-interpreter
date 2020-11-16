@@ -40,7 +40,7 @@ export class Interpreter
 
         if (!isNaN(parseInt(currentChar))) {
             this._position++;
-            return new Token(TokenType.INTEGER, currentChar);
+            return new Token(TokenType.INTEGER, parseInt(currentChar));
         }
 
         if (currentChar === '+') {
@@ -59,7 +59,7 @@ export class Interpreter
 
         switch (operator?.type) {
             case TokenType.PLUS:
-                return parseInt(firstNumber?.value!) + parseInt(secondNumber?.value!);
+                return firstNumber?.value! + secondNumber?.value!;
         }
     }
 }
