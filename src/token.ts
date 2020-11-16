@@ -2,14 +2,15 @@ export enum TokenType
 {
     INTEGER,
     PLUS,
-    EOF
+    EOF,
+    SUB,
 }
 
 
 export class Token
 {
     private readonly _type: TokenType;
-    private readonly _value?: string;
+    private readonly _value?: any;
 
     constructor(type: TokenType, value?: any)
     {

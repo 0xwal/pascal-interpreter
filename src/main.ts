@@ -1,6 +1,6 @@
 import {Interpreter} from './interpreter';
 
 
-const interpreter = new Interpreter('1 + 3');
+const interpreter = new Interpreter('4 - 3');
 const result = interpreter.evaluate();
 console.log(result);

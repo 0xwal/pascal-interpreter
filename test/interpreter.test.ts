@@ -60,6 +60,11 @@ describe('Interpreter', () =>
             expect(new Interpreter('+').nextToken()?.type).to.equals(TokenType.PLUS);
         });
 
+        it('should return TokenType.SUB when source[position] is a "-"', async () =>
+        {
+            expect(new Interpreter('-').nextToken()?.type).to.equals(TokenType.SUB);
+        });
+
         it('should increment the position', async () =>
         {
             let interpreter = new Interpreter('1');
@@ -122,11 +127,18 @@ describe('Interpreter', () =>
             expect(Interpreter.prototype, 'Method is not exist').to.haveOwnProperty('evaluate');
         });
 
-        it('should evaluate and return the result', async () =>
+        it('should evaluate the addition and return the result', async () =>
         {
             expect(new Interpreter('1+2').evaluate()).to.equals(3);
             expect(new Interpreter('1 + 2').evaluate()).to.equals(3);
             expect(new Interpreter('20 + 20').evaluate()).to.equals(40);
+        });
+
+        it('should evaluate the subtraction and return the result', async () =>
+        {
+            expect(new Interpreter('3-2').evaluate()).to.equals(1);
+            expect(new Interpreter('3 - 2').evaluate()).to.equals(1);
+            expect(new Interpreter('20 - 10').evaluate()).to.equals(10);
         });
     });
 });

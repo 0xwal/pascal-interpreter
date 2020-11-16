@@ -56,6 +56,11 @@ export class Interpreter
             return new Token(TokenType.PLUS, currentChar);
         }
 
+        if (currentChar === '-') {
+            this._position++;
+            return new Token(TokenType.SUB, currentChar);
+        }
+
         throw new InvalidTokenException(currentChar);
     }
 
@@ -68,6 +73,8 @@ export class Interpreter
         switch (operator?.type) {
             case TokenType.PLUS:
                 return firstNumber?.value! + secondNumber?.value!;
+            case TokenType.SUB:
+                return firstNumber?.value! - secondNumber?.value!;
         }
     }
 }
