@@ -4,6 +4,8 @@ export enum TokenType
     PLUS,
     EOF,
     SUB,
+    MUL,
+    DIV,
 }
 
 

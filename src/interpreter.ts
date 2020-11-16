@@ -61,6 +61,16 @@ export class Interpreter
             return new Token(TokenType.SUB, currentChar);
         }
 
+        if (currentChar === '*') {
+            this._position++;
+            return new Token(TokenType.MUL, currentChar);
+        }
+
+        if (currentChar === '/') {
+            this._position++;
+            return new Token(TokenType.DIV, currentChar);
+        }
+
         throw new InvalidTokenException(currentChar);
     }
 
@@ -75,6 +85,10 @@ export class Interpreter
                 return firstNumber?.value! + secondNumber?.value!;
             case TokenType.SUB:
                 return firstNumber?.value! - secondNumber?.value!;
+            case TokenType.MUL:
+                return firstNumber?.value! * secondNumber?.value!;
+            case TokenType.DIV:
+                return firstNumber?.value! / secondNumber?.value!;
         }
     }
 }

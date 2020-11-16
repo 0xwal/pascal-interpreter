@@ -65,6 +65,16 @@ describe('Interpreter', () =>
             expect(new Interpreter('-').nextToken()?.type).to.equals(TokenType.SUB);
         });
 
+        it('should return TokenType.MUL when source[position] is a "*"', async () =>
+        {
+            expect(new Interpreter('*').nextToken()?.type).to.equals(TokenType.MUL);
+        });
+
+        it('should return TokenType.DIV when source[position] is a "/"', async () =>
+        {
+            expect(new Interpreter('/').nextToken()?.type).to.equals(TokenType.DIV);
+        });
+
         it('should increment the position', async () =>
         {
             let interpreter = new Interpreter('1');
@@ -139,6 +149,20 @@ describe('Interpreter', () =>
             expect(new Interpreter('3-2').evaluate()).to.equals(1);
             expect(new Interpreter('3 - 2').evaluate()).to.equals(1);
             expect(new Interpreter('20 - 10').evaluate()).to.equals(10);
+        });
+
+        it('should evaluate the multiplication and return the result', async () =>
+        {
+            expect(new Interpreter('3*2').evaluate()).to.equals(6);
+            expect(new Interpreter('3 * 2').evaluate()).to.equals(6);
+            expect(new Interpreter('20 * 10').evaluate()).to.equals(200);
+        });
+
+        it('should evaluate the division and return the result', async () =>
+        {
+            expect(new Interpreter('4/2').evaluate()).to.equals(2);
+            expect(new Interpreter('4 / 2').evaluate()).to.equals(2);
+            expect(new Interpreter('20 / 10').evaluate()).to.equals(2);
         });
     });
 });
