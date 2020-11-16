@@ -88,5 +88,28 @@ describe('Interpreter', () =>
             let interpreter = new Interpreter('@');
             expect(() => interpreter.nextToken()).to.throws(InvalidTokenException, 'Invalid Token: @');
         });
+
+        it('should ignore whitespaces', async () =>
+        {
+            let interpreter = new Interpreter(' 1 + 2 ');
+            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, '1'));
+            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.PLUS, '+'));
+            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, '2'));
+            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.EOF));
+        });
+    });
+
+    describe('evaluate', () =>
+    {
+        it('should be exist', async () =>
+        {
+            expect(Interpreter.prototype, 'Method is not exist').to.haveOwnProperty('evaluate');
+        });
+
+        it('should evaluate and return the result', async () =>
+        {
+            let interpreter = new Interpreter('1+2');
+            expect(interpreter.evaluate()).to.equals(3);
+        });
     });
 });

@@ -27,7 +27,12 @@ export class Interpreter
 
     nextToken(): Token | undefined
     {
-        const currentChar = this.source[this.position];
+
+        while (this.source[this.position] === ' ') {
+            this._position++;
+        }
+
+        let currentChar: string = this.source[this.position];
 
         if (!currentChar) {
             return new Token(TokenType.EOF);
@@ -44,5 +49,17 @@ export class Interpreter
         }
 
         throw new InvalidTokenException(currentChar);
+    }
+
+    public evaluate()
+    {
+        const firstNumber = this.nextToken();
+        const operator = this.nextToken();
+        const secondNumber = this.nextToken();
+
+        switch (operator?.type) {
+            case TokenType.PLUS:
+                return parseInt(firstNumber?.value!) + parseInt(secondNumber?.value!);
+        }
     }
 }

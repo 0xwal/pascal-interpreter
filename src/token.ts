@@ -11,7 +11,7 @@ export class Token
     private readonly _type: TokenType;
     private readonly _value?: string;
 
-    constructor(type: TokenType, value?: string)
+    constructor(type: TokenType, value?: any)
     {
         this._type = type;
         this._value = value;
