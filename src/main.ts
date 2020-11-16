@@ -12,8 +12,12 @@ function waitForCommand()
 {
     rl.question('> ', (answer: string) =>
     {
-        const interpreter = new Interpreter(answer);
-        console.log(interpreter.evaluate());
+        try {
+            const interpreter = new Interpreter(answer);
+            console.log(interpreter.evaluate());
+        } catch (e) {
+            console.error(e.message);
+        }
         waitForCommand();
     });
 }
