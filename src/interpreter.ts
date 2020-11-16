@@ -17,8 +17,8 @@ export class Interpreter
         return 0;
     }
 
-    // nextToken()
-    // {
-    //
-    // }
+    nextToken()
+    {
+
+    }
 }
