@@ -76,19 +76,37 @@ export class Interpreter
 
     public evaluate()
     {
-        const firstNumber = this.nextToken();
-        const operator = this.nextToken();
-        const secondNumber = this.nextToken();
+        let currentToken = this.nextToken();
 
-        switch (operator?.type) {
-            case TokenType.PLUS:
-                return firstNumber?.value! + secondNumber?.value!;
-            case TokenType.SUB:
-                return firstNumber?.value! - secondNumber?.value!;
-            case TokenType.MUL:
-                return firstNumber?.value! * secondNumber?.value!;
-            case TokenType.DIV:
-                return firstNumber?.value! / secondNumber?.value!;
+        let result = currentToken?.value;
+
+        currentToken = this.nextToken();
+
+        while ([TokenType.PLUS, TokenType.SUB, TokenType.MUL, TokenType.DIV].includes(currentToken?.type!)) {
+
+            if (currentToken?.type === TokenType.PLUS) {
+                currentToken = this.nextToken();
+                result = result + currentToken?.value;
+            }
+
+            else if (currentToken?.type === TokenType.SUB) {
+                currentToken = this.nextToken();
+                result = result - currentToken?.value;
+            }
+
+            else if (currentToken?.type === TokenType.MUL) {
+                currentToken = this.nextToken();
+                result = result * currentToken?.value;
+            }
+
+            else if (currentToken?.type === TokenType.DIV) {
+                currentToken = this.nextToken();
+                result = result / currentToken?.value;
+            }
+
+            currentToken = this.nextToken();
         }
+
+        return result;
     }
 }

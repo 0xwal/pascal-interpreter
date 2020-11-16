@@ -164,5 +164,17 @@ describe('Interpreter', () =>
             expect(new Interpreter('4 / 2').evaluate()).to.equals(2);
             expect(new Interpreter('20 / 10').evaluate()).to.equals(2);
         });
+
+        it('should be able to calculate arbitrary numbers', async () =>
+        {
+            expect(new Interpreter('4 + 4 + 2').evaluate()).to.equals(10);
+            expect(new Interpreter('6 + 6 + 2 + 1').evaluate()).to.equals(15);
+            expect(new Interpreter('6 + 6 - 2').evaluate()).to.equals(10);
+            expect(new Interpreter('6 + 6 - 2 - 2').evaluate()).to.equals(8);
+            expect(new Interpreter('2 + 2 * 2').evaluate()).to.equals(8);
+            expect(new Interpreter('2 * 2 * 2').evaluate()).to.equals(8);
+            expect(new Interpreter('2 * 2 / 2 / 1').evaluate()).to.equals(2);
+            expect(new Interpreter('8 / 2 / 2').evaluate()).to.equals(2);
+        });
     });
 });
