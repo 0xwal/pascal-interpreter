@@ -84,30 +84,25 @@ export class Interpreter
 
         while ([TokenType.PLUS, TokenType.SUB, TokenType.MUL, TokenType.DIV].includes(currentToken?.type!)) {
 
-            // if (currentToken?.type === TokenType.PLUS) {
-            //     currentToken = this.nextToken();
-            //     result = result + currentToken?.value;
-            // }
-            //
-            // else if (currentToken?.type === TokenType.SUB) {
-            //     currentToken = this.nextToken();
-            //     result = result - currentToken?.value;
-            // }
-            //
-            // else if (currentToken?.type === TokenType.MUL) {
-            //     currentToken = this.nextToken();
-            //     result = result * currentToken?.value;
-            // }
-            //
-            // else if (currentToken?.type === TokenType.DIV) {
-            //     currentToken = this.nextToken();
-            //     result = result / currentToken?.value;
-            // }
-            let op = currentToken?.value;
-            currentToken = this.nextToken();
-            result = eval(`${result}
-            ${op}
-            ${currentToken?.value}`);
+            if (currentToken?.type === TokenType.PLUS) {
+                currentToken = this.nextToken();
+                result = result + currentToken?.value;
+            }
+
+            else if (currentToken?.type === TokenType.SUB) {
+                currentToken = this.nextToken();
+                result = result - currentToken?.value;
+            }
+
+            else if (currentToken?.type === TokenType.MUL) {
+                currentToken = this.nextToken();
+                result = result * currentToken?.value;
+            }
+
+            else if (currentToken?.type === TokenType.DIV) {
+                currentToken = this.nextToken();
+                result = result / currentToken?.value;
+            }
             currentToken = this.nextToken();
         }
 
