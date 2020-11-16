@@ -32,7 +32,7 @@ export class Interpreter
             this._position++;
         }
 
-        let currentChar: string = this.source[this.position];
+        const currentChar: string = this.source[this.position];
 
         if (!currentChar) {
             return new Token(TokenType.EOF);
