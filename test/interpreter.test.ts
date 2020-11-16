@@ -1,5 +1,6 @@
 import {expect} from 'chai';
 import {Interpreter} from '../src/interpreter';
+import {Token, TokenType} from '../src/token';
 
 
 describe('Interpreter', () =>
@@ -41,6 +42,29 @@ describe('Interpreter', () =>
         it('should be exist', async () =>
         {
             expect(Interpreter.prototype, 'Method not exist').to.haveOwnProperty('nextToken');
+        });
+
+        it('should return instance of "Token"', async () =>
+        {
+            expect(new Interpreter('').nextToken()).to.be.instanceOf(Token);
+        });
+
+        it('should return TokenType.INTEGER when source[position] is a number', async () =>
+        {
+            expect(new Interpreter('1').nextToken()?.type).to.equals(TokenType.INTEGER);
+        });
+
+        it('should return TokenType.PLUS when source[position] is a "+"', async () =>
+        {
+            expect(new Interpreter('+').nextToken()?.type).to.equals(TokenType.PLUS);
+        });
+
+        it('should increment the position', async () =>
+        {
+            let interpreter = new Interpreter('1');
+            expect(interpreter.position).to.equals(0);
+            interpreter.nextToken();
+            expect(interpreter.position).to.equals(1);
         });
     });
 });
