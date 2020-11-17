@@ -6,6 +6,7 @@ import {InvalidSyntaxException} from './exceptions/invalid-syntax.exception';
 export class Interpreter
 {
     private readonly _source: string;
+    private _position: number;
 
     constructor(source: string)
     {
@@ -13,9 +14,7 @@ export class Interpreter
         this._position = 0;
     }
 
-    private _position: number;
-
-    get source()
+    get source(): string
     {
         return this._source;
     }
@@ -25,7 +24,7 @@ export class Interpreter
         return this._position;
     }
 
-    private static isNumber(currentChar: string)
+    private static isNumber(currentChar: string): boolean
     {
         return currentChar >= '0' && currentChar <= '9';
     }
@@ -61,7 +60,7 @@ export class Interpreter
         throw new InvalidTokenException(currentChar);
     }
 
-    public evaluate()
+    public evaluate(): any
     {
         let currentToken = this.nextToken();
 
@@ -109,7 +108,7 @@ export class Interpreter
         }
     }
 
-    private giveMeTheIntegerOrPanicIfThereIsNone()
+    private giveMeTheIntegerOrPanicIfThereIsNone(): Token
     {
         const currentToken = this.nextToken();
         if (currentToken?.type !== TokenType.INTEGER) {
