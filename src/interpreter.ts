@@ -71,28 +71,22 @@ export class Interpreter
 
         let arthriticOperators = [TokenType.PLUS, TokenType.SUB, TokenType.MUL, TokenType.DIV];
 
+        const calculator: any = {};
+        calculator[TokenType.PLUS] = (n: number) => result + n;
+        calculator[TokenType.SUB] = (n: number) => result - n;
+        calculator[TokenType.MUL] = (n: number) => result * n;
+        calculator[TokenType.DIV] = (n: number) => result / n;
+
         while (arthriticOperators.includes(currentToken?.type!)) {
 
-            if (currentToken?.type === TokenType.PLUS) {
-                currentToken = this.giveMeTheIntegerOrPanicIfThereNone();
-                result = result + currentToken?.value;
-            }
+            const currentOperatorToken = currentToken;
 
-            else if (currentToken?.type === TokenType.SUB) {
-                currentToken = this.giveMeTheIntegerOrPanicIfThereNone();
-                result = result - currentToken?.value;
-            }
+            currentToken = this.giveMeTheIntegerOrPanicIfThereNone();
 
-            else if (currentToken?.type === TokenType.MUL) {
-                currentToken = this.giveMeTheIntegerOrPanicIfThereNone();
-                result = result * currentToken?.value;
-            }
+            result = calculator[currentOperatorToken?.type.toString()!](currentToken.value);
 
-            else if (currentToken?.type === TokenType.DIV) {
-                currentToken = this.giveMeTheIntegerOrPanicIfThereNone();
-                result = result / currentToken?.value;
-            }
             currentToken = this.nextToken();
+
         }
 
         return result;
