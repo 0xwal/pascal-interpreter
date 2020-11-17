@@ -74,34 +74,22 @@ export class Interpreter
         while (arthriticOperators.includes(currentToken?.type!)) {
 
             if (currentToken?.type === TokenType.PLUS) {
-                currentToken = this.nextToken();
-                if (currentToken?.type !== TokenType.INTEGER) {
-                    throw new InvalidSyntaxException();
-                }
+                currentToken = this.giveMeTheIntegerOrPanicIfThereNone();
                 result = result + currentToken?.value;
             }
 
             else if (currentToken?.type === TokenType.SUB) {
-                currentToken = this.nextToken();
-                if (currentToken?.type !== TokenType.INTEGER) {
-                    throw new InvalidSyntaxException();
-                }
+                currentToken = this.giveMeTheIntegerOrPanicIfThereNone();
                 result = result - currentToken?.value;
             }
 
             else if (currentToken?.type === TokenType.MUL) {
-                currentToken = this.nextToken();
-                if (currentToken?.type !== TokenType.INTEGER) {
-                    throw new InvalidSyntaxException();
-                }
+                currentToken = this.giveMeTheIntegerOrPanicIfThereNone();
                 result = result * currentToken?.value;
             }
 
             else if (currentToken?.type === TokenType.DIV) {
-                currentToken = this.nextToken();
-                if (currentToken?.type !== TokenType.INTEGER) {
-                    throw new InvalidSyntaxException();
-                }
+                currentToken = this.giveMeTheIntegerOrPanicIfThereNone();
                 result = result / currentToken?.value;
             }
             currentToken = this.nextToken();
@@ -125,5 +113,14 @@ export class Interpreter
         while (this.source[this.position] === ' ') {
             this._position++;
         }
+    }
+
+    private giveMeTheIntegerOrPanicIfThereNone()
+    {
+        let currentToken = this.nextToken();
+        if (currentToken?.type !== TokenType.INTEGER) {
+            throw new InvalidSyntaxException();
+        }
+        return currentToken;
     }
 }
