@@ -1,6 +1,5 @@
 import {Token, TokenType} from './token';
-import {InvalidTokenException} from './exceptions/invalid-token.exception';
-import {InvalidSyntaxException} from './exceptions/invalid-syntax.exception';
+import {InvalidTokenException, InvalidSyntaxException} from './exceptions';
 
 
 export class Interpreter
