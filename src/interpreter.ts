@@ -93,7 +93,7 @@ export class Interpreter
     private grabWholeNumber(): number
     {
         let number = '';
-        while (this.source[this.position] >= '0' && this.source[this.position] <= '9') {
+        while (Interpreter.isNumber(this.source[this.position])) {
             number += this.source[this.position];
             this._position++;
         }
