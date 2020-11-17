@@ -29,9 +29,7 @@ export class Interpreter
     nextToken(): Token | undefined
     {
 
-        while (this.source[this.position] === ' ') {
-            this._position++;
-        }
+        this.cleanWhitespaces();
 
         const currentChar: string = this.source[this.position];
 
@@ -39,17 +37,9 @@ export class Interpreter
             return new Token(TokenType.EOF);
         }
 
-        if (!isNaN(parseInt(currentChar))) {
-            let number = '';
-            let tempPosition = this._position;
-            let count = 0;
-            while (this.source[tempPosition] >= '0' && this.source[tempPosition] <= '9') {
-                number += this.source[tempPosition];
-                tempPosition++;
-                count++;
-            }
-            this._position += count;
-            return new Token(TokenType.INTEGER, parseInt(number));
+        if (currentChar >= '0' && currentChar <= '9') {
+            let number = this.grabWholeNumber();
+            return new Token(TokenType.INTEGER, number);
         }
 
         if (currentChar === '+') {
@@ -83,7 +73,9 @@ export class Interpreter
 
         currentToken = this.nextToken();
 
-        while ([TokenType.PLUS, TokenType.SUB, TokenType.MUL, TokenType.DIV].includes(currentToken?.type!)) {
+        let arthriticOperators = [TokenType.PLUS, TokenType.SUB, TokenType.MUL, TokenType.DIV];
+
+        while (arthriticOperators.includes(currentToken?.type!)) {
 
             if (currentToken?.type === TokenType.PLUS) {
                 currentToken = this.nextToken();
@@ -120,5 +112,22 @@ export class Interpreter
         }
 
         return result;
+    }
+
+    private grabWholeNumber(): number
+    {
+        let number = '';
+        while (this.source[this.position] >= '0' && this.source[this.position] <= '9') {
+            number += this.source[this.position];
+            this._position++;
+        }
+        return parseInt(number);
+    }
+
+    private cleanWhitespaces(): void
+    {
+        while (this.source[this.position] === ' ') {
+            this._position++;
+        }
     }
 }
