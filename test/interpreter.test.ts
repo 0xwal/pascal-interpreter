@@ -178,7 +178,7 @@ describe('Interpreter', () =>
             expect(new Interpreter('8 / 2 / 2').evaluate()).to.equals(2);
         });
 
-        it('should throw an exception', async () =>
+        it('should throw an exception when arithmetic structure not valid', async () =>
         {
             expect(() => new Interpreter('4 + 4 +').evaluate()).to.throws(InvalidSyntaxException, 'Invalid syntax');
             expect(() => new Interpreter('4 + 4 /').evaluate()).to.throws(InvalidSyntaxException, 'Invalid syntax');
