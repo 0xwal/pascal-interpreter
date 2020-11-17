@@ -25,6 +25,10 @@ export class Interpreter
         return this._position;
     }
 
+    private static isNumber(currentChar: string)
+    {
+        return currentChar >= '0' && currentChar <= '9';
+    }
 
     nextToken(): Token | undefined
     {
@@ -37,29 +41,21 @@ export class Interpreter
             return new Token(TokenType.EOF);
         }
 
-        if (currentChar >= '0' && currentChar <= '9') {
+        if (Interpreter.isNumber(currentChar)) {
             let number = this.grabWholeNumber();
             return new Token(TokenType.INTEGER, number);
         }
 
-        if (currentChar === '+') {
-            this._position++;
-            return new Token(TokenType.PLUS, currentChar);
-        }
+        const arithmeticOperators: any = {
+            '+': TokenType.PLUS,
+            '-': TokenType.SUB,
+            '*': TokenType.MUL,
+            '/': TokenType.DIV
+        };
 
-        if (currentChar === '-') {
+        if (arithmeticOperators[currentChar] !== undefined) {
             this._position++;
-            return new Token(TokenType.SUB, currentChar);
-        }
-
-        if (currentChar === '*') {
-            this._position++;
-            return new Token(TokenType.MUL, currentChar);
-        }
-
-        if (currentChar === '/') {
-            this._position++;
-            return new Token(TokenType.DIV, currentChar);
+            return new Token(arithmeticOperators[currentChar], currentChar);
         }
 
         throw new InvalidTokenException(currentChar);
