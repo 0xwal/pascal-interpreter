@@ -47,7 +47,7 @@ export class Interpreter
         }
 
         const arithmeticOperators: any = {
-            '+': TokenType.PLUS,
+            '+': TokenType.ADD,
             '-': TokenType.SUB,
             '*': TokenType.MUL,
             '/': TokenType.DIV
@@ -69,10 +69,10 @@ export class Interpreter
 
         currentToken = this.nextToken();
 
-        const arthriticOperators = [TokenType.PLUS, TokenType.SUB, TokenType.MUL, TokenType.DIV];
+        const arthriticOperators = [TokenType.ADD, TokenType.SUB, TokenType.MUL, TokenType.DIV];
 
         const calculator: any = {};
-        calculator[TokenType.PLUS] = (n: number) => result + n;
+        calculator[TokenType.ADD] = (n: number) => result + n;
         calculator[TokenType.SUB] = (n: number) => result - n;
         calculator[TokenType.MUL] = (n: number) => result * n;
         calculator[TokenType.DIV] = (n: number) => result / n;

@@ -58,7 +58,7 @@ describe('Interpreter', () =>
 
         it('should return TokenType.PLUS when source[position] is a "+"', async () =>
         {
-            expect(new Interpreter('+').nextToken()?.type).to.equals(TokenType.PLUS);
+            expect(new Interpreter('+').nextToken()?.type).to.equals(TokenType.ADD);
         });
 
         it('should return TokenType.SUB when source[position] is a "-"', async () =>
@@ -95,7 +95,7 @@ describe('Interpreter', () =>
             let interpreter = new Interpreter('1+2');
 
             expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, 1));
-            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.PLUS, '+'));
+            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.ADD, '+'));
             expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, 2));
         });
 
@@ -104,7 +104,7 @@ describe('Interpreter', () =>
             let interpreter = new Interpreter('1+2');
 
             expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, 1));
-            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.PLUS, '+'));
+            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.ADD, '+'));
             expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, 2));
             expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.EOF));
         });
@@ -119,7 +119,7 @@ describe('Interpreter', () =>
         {
             let interpreter = new Interpreter(' 1 + 2 ');
             expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, 1));
-            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.PLUS, '+'));
+            expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.ADD, '+'));
             expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.INTEGER, 2));
             expect(interpreter.nextToken()).to.deep.equals(new Token(TokenType.EOF));
         });

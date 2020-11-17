@@ -1,7 +1,7 @@
 export enum TokenType
 {
     INTEGER,
-    PLUS,
+    ADD,
     EOF,
     SUB,
     MUL,

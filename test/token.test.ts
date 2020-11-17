@@ -19,7 +19,7 @@ describe('Token', () =>
 
         it('should return the value that we passed via the constructor', async () =>
         {
-            expect(new Token(TokenType.PLUS).type).to.equals(TokenType.PLUS);
+            expect(new Token(TokenType.ADD).type).to.equals(TokenType.ADD);
         });
     });
 
@@ -32,7 +32,7 @@ describe('Token', () =>
 
         it('should return the value that we passed via the constructor', async () =>
         {
-            expect(new Token(TokenType.PLUS, '+').value).to.equals('+');
+            expect(new Token(TokenType.ADD, '+').value).to.equals('+');
         });
     });
 });
