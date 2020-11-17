@@ -69,7 +69,7 @@ export class Interpreter
 
         currentToken = this.nextToken();
 
-        let arthriticOperators = [TokenType.PLUS, TokenType.SUB, TokenType.MUL, TokenType.DIV];
+        const arthriticOperators = [TokenType.PLUS, TokenType.SUB, TokenType.MUL, TokenType.DIV];
 
         const calculator: any = {};
         calculator[TokenType.PLUS] = (n: number) => result + n;
@@ -81,7 +81,7 @@ export class Interpreter
 
             const currentOperatorToken = currentToken;
 
-            currentToken = this.giveMeTheIntegerOrPanicIfThereNone();
+            currentToken = this.giveMeTheIntegerOrPanicIfThereIsNone();
 
             result = calculator[currentOperatorToken?.type.toString()!](currentToken.value);
 
@@ -109,9 +109,9 @@ export class Interpreter
         }
     }
 
-    private giveMeTheIntegerOrPanicIfThereNone()
+    private giveMeTheIntegerOrPanicIfThereIsNone()
     {
-        let currentToken = this.nextToken();
+        const currentToken = this.nextToken();
         if (currentToken?.type !== TokenType.INTEGER) {
             throw new InvalidSyntaxException();
         }
